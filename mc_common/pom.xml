@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <artifactId>message_center</artifactId>
+        <groupId>com.cracker.api</groupId>
+        <version>1.1.0</version>
+    </parent>
+
+    <groupId>com.cracker.api.mc.common</groupId>
+    <artifactId>mc_common</artifactId>
+    <version>${project.version}</version>
+    <name>mc_common</name>
+    <description>Common module for message_center</description>
+
+    <properties>
+        <io-version>5.0.0.Alpha2</io-version>
+        <common-lang3-version>3.8.1</common-lang3-version>
+        <code-gson-version>2.3.1</code-gson-version>
+        <javassist-version>3.19.0-GA</javassist-version>
+        <common-codec-version>1.13</common-codec-version>
+        <com-ning-version>1.9.5</com-ning-version>
+        <google-guava-version>18.0</google-guava-version>
+    </properties>
+
+
+    <dependencies>
+
+        <!-- apache common lang3-->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${common-lang3-version}</version>
+        </dependency>
+
+        <!-- google collection util-->
+        <dependency>
+            <groupId>com.google.collections</groupId>
+            <artifactId>google-collections</artifactId>
+            <version>1.0</version>
+        </dependency>
+
+        <!-- google code gson-->
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>${code-gson-version}</version>
+        </dependency>
+
+        <!-- javassist -->
+        <dependency>
+            <groupId>org.javassist</groupId>
+            <artifactId>javassist</artifactId>
+            <version>${javassist-version}</version>
+        </dependency>
+
+        <!-- 随机数/id/加减密算法/编码解码-->
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>${common-codec-version}</version>
+        </dependency>
+
+        <!-- 异步http请求调用-->
+        <dependency>
+            <groupId>com.ning</groupId>
+            <artifactId>async-http-client</artifactId>
+            <version>${com-ning-version}</version>
+        </dependency>
+
+        <!-- guava线程并发库-->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${google-guava-version}</version>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
