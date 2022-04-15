@@ -81,4 +81,15 @@
         </plugins>
     </build>
 
+    <developers>
+        <developer>
+            <name>lizhenghong</name>
+            <email>2486479615@qq.com</email>
+            <roles>
+                <role>Developer</role>
+            </roles>
+            <timezone>+8</timezone>
+        </developer>
+    </developers>
+
 </project>
