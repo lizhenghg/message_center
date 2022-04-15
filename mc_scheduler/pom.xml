@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.cracker.api</groupId>
+        <artifactId>message_center</artifactId>
+        <version>1.1.0</version>
+    </parent>
+
+    <groupId>com.cracker.api.mc.scheduler</groupId>
+    <artifactId>mc_scheduler_${env}</artifactId>
+    <version>${project.version}</version>
+    <name>mc_scheduler</name>
+    <description>Scheduler project for message_center</description>
+
+
+    <dependencies>
+        <!-- 导入mc_common依赖-->
+        <dependency>
+            <groupId>com.cracker.api.mc.common</groupId>
+            <artifactId>mc_common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <!-- 导入mc_http-->
+        <dependency>
+            <groupId>com.cracker.api.mc.http</groupId>
+            <artifactId>mc_http</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <!-- 导入mc_mq-->
+        <dependency>
+            <groupId>com.cracker.api.mc.mq</groupId>
+            <artifactId>mc_mq</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <!-- 导入mc_cache-->
+        <dependency>
+            <groupId>com.cracker.api.mc.cache</groupId>
+            <artifactId>mc_cache</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <!-- 导入mc_executor-->
+        <dependency>
+            <groupId>com.cracker.api.mc.executor</groupId>
+            <artifactId>mc_executor</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <!-- 导入mc_retry-->
+        <dependency>
+            <groupId>com.cracker.api.mc.retry</groupId>
+            <artifactId>mc_retry</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+    </dependencies>
+
+
+    <build>
+        <finalName>mc_scheduler_${env}_${project.version}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <appendAssemblyId>false</appendAssemblyId>
+                    <descriptors>
+                        <descriptor>assembly.xml</descriptor>
+                    </descriptors>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                            <includeScope>compile</includeScope>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.6</version>
+                <executions>
+                    <execution>
+                        <id>compile-copy-resources</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <encoding>UTF-8</encoding>
+                            <outputDirectory>${basedir}/target/config</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>${basedir}/src/main/resources</directory>
+                                    <filtering>true</filtering>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>copy-conf-resources</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <encoding>UTF-8</encoding>
+                            <outputDirectory>${basedir}/target/config</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>${basedir}/src/main/resources</directory>
+                                    <filtering>true</filtering>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>copy-command-resources</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <encoding>UTF-8</encoding>
+                            <outputDirectory>${basedir}/target</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>command</directory>
+                                    <filtering>true</filtering>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>log4j.xml</exclude>
+                    </excludes>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>lib/</classpathPrefix>
+                            <mainClass>com.cracker.api.mc.scheduler.SchedulerApplication</mainClass>
+                        </manifest>
+                        <manifestEntries>
+                            <Class-Path>config/</Class-Path>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
+
+
+    <profiles>
+        <!-- 默认开发环境-->
+        <profile>
+            <id>local</id>
+<!--            <activation>-->
+<!--                <activeByDefault>true</activeByDefault>-->
+<!--            </activation>-->
+            <properties>
+                <env>local</env>
+                <!--mc_http-->
+                <http.channel.read.timeout>180</http.channel.read.timeout>
+                <http.channel.write.timeout>60</http.channel.write.timeout>
+                <http.channel.default.aggregator>10485760</http.channel.default.aggregator>
+                <http.default.port>3071</http.default.port>
+                <http.handler.package>com.cracker.api.mc.scheduler.api.handler</http.handler.package>
+
+                <!--mc_cache-->
+                <cache.redis.host>192.168.1.234:6379,192.168.1.234:6380,192.168.1.234:6381,192.168.1.235:6382,192.168.1.235:6383,192.168.1.235:6384</cache.redis.host>
+                <!-- 没设置密码的这里为空或者该元素可以不写-->
+                <cache.redis.password>ucap234@#$</cache.redis.password>
+                <!-- 1表示集群;2表示哨兵;3表示单实例-->
+                <cache.redis.type>1</cache.redis.type>
+                <!-- 哨兵模式下主机名称，不是该模式的可以为空或者不写该元素-->
+<!--                <cache.redis.sentinel.master.name></cache.redis.sentinel.master.name>-->
+                <cache.command.class>com.cracker.api.mc.cache.redis.RedisClusterCommands</cache.command.class>
+                <cache.executor.class>com.cracker.api.mc.cache.redis.RedisCache</cache.executor.class>
+                <cache.package>com.cracker.api.mc.scheduler.bussizcache</cache.package>
+                <cache.vo.package>com.cracker.api.mc.scheduler.bussizvo</cache.vo.package>
+
+                <!-- mc_mq-->
+                <mq.producing.queue.thread.count>5</mq.producing.queue.thread.count>
+                <mq.producing.queue.thread.period>1000</mq.producing.queue.thread.period>
+                <mq.producing.queue.retryCount>5</mq.producing.queue.retryCount>
+                <mq.producing.queue.maximumPoolSize>50</mq.producing.queue.maximumPoolSize>
+                <mq.producing.send.thread.count>15</mq.producing.send.thread.count>
+                <mq.consumer.queue.thread.count>50</mq.consumer.queue.thread.count>
+                <mq.queue.name>mq_local_queue</mq.queue.name>
+                <mq.queue.count>10</mq.queue.count>
+                <mq.broker.url>failover:(tcp://192.168.1.237:61616,tcp://192.168.1.238:61616,tcp://192.168.1.239:61616)?timeout=60000&amp;randomize=false&amp;priorityBackup=true</mq.broker.url>
+                <mq.username>ucap</mq.username>
+                <mq.password>update1qa0ok</mq.password>
+
+                <!-- mc_executor-->
+                <executor.task.thread.count>100</executor.task.thread.count>
+
+            </properties>
+        </profile>
+
+        <!-- 测试环境-->
+        <profile>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <env>dev</env>
+                <!--mc_http-->
+                <http.channel.read.timeout>180</http.channel.read.timeout>
+                <http.channel.write.timeout>60</http.channel.write.timeout>
+                <http.channel.default.aggregator>10485760</http.channel.default.aggregator>
+                <http.default.port>3071</http.default.port>
+                <http.handler.package>com.cracker.api.mc.scheduler.api.handler</http.handler.package>
+
+                <!--mc_cache-->
+                <cache.redis.host>192.168.1.234:6379,192.168.1.234:6380,192.168.1.234:6381,192.168.1.235:6382,192.168.1.235:6383,192.168.1.235:6384</cache.redis.host>
+                <!-- 没设置密码的这里为空或者该元素可以不写-->
+                <cache.redis.password>ucap234@#$</cache.redis.password>
+                <!-- 1表示集群;2表示哨兵;3表示单实例-->
+                <cache.redis.type>1</cache.redis.type>
+                <!-- 哨兵模式下主机名称，不是该模式的可以为空或者不写该元素-->
+                <!--                <cache.redis.sentinel.master.name></cache.redis.sentinel.master.name>-->
+                <cache.command.class>com.cracker.api.mc.cache.redis.RedisClusterCommands</cache.command.class>
+                <cache.executor.class>com.cracker.api.mc.cache.redis.RedisCache</cache.executor.class>
+                <cache.package>com.cracker.api.mc.scheduler.bussizcache</cache.package>
+                <cache.vo.package>com.cracker.api.mc.scheduler.bussizvo</cache.vo.package>
+
+                <!-- mc_mq-->
+                <mq.producing.queue.thread.count>5</mq.producing.queue.thread.count>
+                <mq.producing.queue.thread.period>1000</mq.producing.queue.thread.period>
+                <mq.producing.queue.retryCount>5</mq.producing.queue.retryCount>
+                <mq.producing.queue.maximumPoolSize>50</mq.producing.queue.maximumPoolSize>
+                <mq.producing.send.thread.count>15</mq.producing.send.thread.count>
+                <mq.consumer.queue.thread.count>50</mq.consumer.queue.thread.count>
+                <mq.queue.name>mq_local_queue</mq.queue.name>
+                <mq.queue.count>10</mq.queue.count>
+                <mq.broker.url>failover:(tcp://192.168.1.237:61616,tcp://192.168.1.238:61616,tcp://192.168.1.239:61616)?timeout=60000&amp;randomize=false&amp;priorityBackup=true</mq.broker.url>
+                <mq.username>ucap</mq.username>
+                <mq.password>update1qa0ok</mq.password>
+
+                <!-- mc_executor-->
+                <executor.task.thread.count>100</executor.task.thread.count>
+
+            </properties>
+        </profile>
+
+
+        <!-- 这里可以添加生产环境-->
+    </profiles>
+
+</project>
