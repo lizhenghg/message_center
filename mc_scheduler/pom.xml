@@ -212,9 +212,9 @@
                 <http.handler.package>com.cracker.api.mc.scheduler.api.handler</http.handler.package>
 
                 <!--mc_cache-->
-                <cache.redis.host>192.168.1.234:6379,192.168.1.234:6380,192.168.1.234:6381,192.168.1.235:6382,192.168.1.235:6383,192.168.1.235:6384</cache.redis.host>
+                <cache.redis.host>172.16.1.234:6379,172.16.1.234:6380,172.16.1.234:6381,172.16.1.235:6382,172.16.1.235:6383,172.16.1.235:6384</cache.redis.host>
                 <!-- 没设置密码的这里为空或者该元素可以不写-->
-                <cache.redis.password>ucap234@#$</cache.redis.password>
+                <cache.redis.password>123456</cache.redis.password>
                 <!-- 1表示集群;2表示哨兵;3表示单实例-->
                 <cache.redis.type>1</cache.redis.type>
                 <!-- 哨兵模式下主机名称，不是该模式的可以为空或者不写该元素-->
@@ -233,9 +233,9 @@
                 <mq.consumer.queue.thread.count>50</mq.consumer.queue.thread.count>
                 <mq.queue.name>mq_local_queue</mq.queue.name>
                 <mq.queue.count>10</mq.queue.count>
-                <mq.broker.url>failover:(tcp://192.168.1.237:61616,tcp://192.168.1.238:61616,tcp://192.168.1.239:61616)?timeout=60000&amp;randomize=false&amp;priorityBackup=true</mq.broker.url>
+                <mq.broker.url>failover:(tcp://172.16.1.237:61616,tcp://172.16.1.238:61616,tcp://172.16.1.239:61616)?timeout=60000&amp;randomize=false&amp;priorityBackup=true</mq.broker.url>
                 <mq.username>ucap</mq.username>
-                <mq.password>update1qa0ok</mq.password>
+                <mq.password>123456</mq.password>
 
                 <!-- mc_executor-->
                 <executor.task.thread.count>100</executor.task.thread.count>
@@ -259,9 +259,9 @@
                 <http.handler.package>com.cracker.api.mc.scheduler.api.handler</http.handler.package>
 
                 <!--mc_cache-->
-                <cache.redis.host>192.168.1.234:6379,192.168.1.234:6380,192.168.1.234:6381,192.168.1.235:6382,192.168.1.235:6383,192.168.1.235:6384</cache.redis.host>
+                <cache.redis.host>172.16.1.234:6379,172.16.1.234:6380,172.16.1.234:6381,172.16.1.235:6382,172.16.1.235:6383,172.16.1.235:6384</cache.redis.host>
                 <!-- 没设置密码的这里为空或者该元素可以不写-->
-                <cache.redis.password>ucap234@#$</cache.redis.password>
+                <cache.redis.password>123456</cache.redis.password>
                 <!-- 1表示集群;2表示哨兵;3表示单实例-->
                 <cache.redis.type>1</cache.redis.type>
                 <!-- 哨兵模式下主机名称，不是该模式的可以为空或者不写该元素-->
@@ -280,9 +280,9 @@
                 <mq.consumer.queue.thread.count>50</mq.consumer.queue.thread.count>
                 <mq.queue.name>mq_local_queue</mq.queue.name>
                 <mq.queue.count>10</mq.queue.count>
-                <mq.broker.url>failover:(tcp://192.168.1.237:61616,tcp://192.168.1.238:61616,tcp://192.168.1.239:61616)?timeout=60000&amp;randomize=false&amp;priorityBackup=true</mq.broker.url>
+                <mq.broker.url>failover:(tcp://172.16.1.237:61616,tcp://172.16.1.238:61616,tcp://172.16.1.239:61616)?timeout=60000&amp;randomize=false&amp;priorityBackup=true</mq.broker.url>
                 <mq.username>ucap</mq.username>
-                <mq.password>update1qa0ok</mq.password>
+                <mq.password>123456</mq.password>
 
                 <!-- mc_executor-->
                 <executor.task.thread.count>100</executor.task.thread.count>
